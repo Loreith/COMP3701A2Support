@@ -140,7 +140,7 @@ class Obstacle:
             dx = abs(x-cornerX)
             dy = abs(y-cornerY)
 
-            return( sqrt(dx**2 + dy**2) )
+            return( math.sqrt(dx**2 + dy**2) )
 
     def outcode(self, coord):
         """

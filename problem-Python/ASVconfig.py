@@ -1,3 +1,5 @@
+import math
+
 class ASVConfig:
     """
         Represents a configuration of the ASVs, in python. This class doesn't do
@@ -54,7 +56,10 @@ class ASVConfig:
         """
         return(len(self.asvPositions))
 
-    def getPos(self, asvNo):
+    def getASVCount(self):
+        return(len(self.asvPositions))
+
+    def getPosition(self, asvNo):
         """
             Returns the position of the ASV with the given index
 
@@ -64,7 +69,7 @@ class ASVConfig:
         """
         return(self.asvPositions[asvNo])
 
-    def getAllPos(self):
+    def getASVPositions(self):
         """
             Returns the positions of all of the ASVs. Analogous to printing.
 
@@ -88,7 +93,7 @@ class ASVConfig:
         for i in range(len(self.asvPositions)):
             p1 = self.asvPositions[i]
             p2 = otherState.getPos(i)
-            distance = sqrt( abs(p2[0] - p1[0])**2 + abs(p2[1] - p1[1])**2 )
+            distance = math.sqrt( abs(p2[0] - p1[0])**2 + abs(p2[1] - p1[1])**2 )
 
             maxDistance = max([distance, maxDistance])
 
@@ -110,7 +115,7 @@ class ASVConfig:
         for i in range(len(self.asvPositions)):
             p1 = self.asvPositions[i]
             p2 = otherState.getPos(i)
-            distance = sqrt( abs(p2[0] - p1[0])**2 + abs(p2[1] - p1[1])**2 )
+            distance = math.sqrt( abs(p2[0] - p1[0])**2 + abs(p2[1] - p1[1])**2 )
             #TODO: remove unnecesary variable when tested
             totalDistance += distance
 
