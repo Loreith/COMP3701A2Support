@@ -1,7 +1,7 @@
 import math
 from shapely.geometry import LineString
 
-class line2D:
+class Line2D:
     """
         A python implementation of the java line2D class
 
@@ -30,7 +30,7 @@ class line2D:
 
     def __contains__(self, point):
         #Cheaty simultanious equations
-        vect = self.getVector
+        vect = self.getVector()
         o = vect[0]
         d = vect[1]
 
@@ -115,6 +115,8 @@ class line2D:
             return (line.intersects(rectLine))
         elif vect[2] != 0 and vect[3] != 0:
             #If we are off a corner
+            r1 = vect[0]
+            r2 = vect[1]
 
             r1 += r[2] if vect[1] == r[1] else -r[2]
             r2 += r[3] if vect[0] == r[0] else -r[3]

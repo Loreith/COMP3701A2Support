@@ -1,5 +1,5 @@
 import ASVconfig
-import Obstacle
+import obstacle
 
 class ProblemSpec:
     """
@@ -47,10 +47,10 @@ class ProblemSpec:
             self.asvCount = inputData[i]
             i += 1
 
-            self.initialState = ASVconfig(inputData[i])
+            self.initialState = ASVconfig.ASVConfig(inputData[i])
             i += 1
 
-            self.goalState = ASVconfig(inputData[i])
+            self.goalState = ASVconfig.ASVConfig(inputData[i])
             i += 1
 
             numObstacles = inputData[i]
@@ -58,15 +58,14 @@ class ProblemSpec:
 
             self.obstacles = [None] * numObstacles
             for _ in range(numObstacles):
-                self.obstacles[_] = Obstacle().construct(inputData[i]) #TODO: Swap the contructors
+                self.obstacles[_] = obstacle.Obstacle().construct(inputData[i]) #TODO: Swap the contructors
                 i += 1
 
             self.problemLoaded = True
-        except (IndexError e):
+        except IndexError:
             print("Index out of range in input " + i )
-            print(e)
             raise IOError("Index out of range in input " + i)
-        except (FileNotFoundError e):
+        except FileNotFoundError:
             print("Input file not found")
             raise IOError("Input file not found")
         #TODO: Input varification error
@@ -79,7 +78,7 @@ class ProblemSpec:
 
             @throws IOError if the text file doesn't exist or doesn't meet the expectations
         """
-        if (!self.problemLoaded):
+        if (not self.problemLoaded):
             return(None)
 
         self.solutionLoaded = False
@@ -96,15 +95,15 @@ class ProblemSpec:
 
             self.path = [None]*pathLength
             for it in range(pathLength):
-                self.path[it] = ASVconfig(inputData[i])
+                self.path[it] = ASVconfig.ASVConfig(inputData[i])
                 i += 1
 
             self.solutionLoaded = True
 
-        except (IndexError e):
+        except IndexError:
             print("Index out of range in solution loading")
             raise IOError("Index out of range in solution loading")
-        except (FileNotFoundError e):
+        except FileNotFoundError:
             print("Solution file not found")
             raise IOError("Solution file not found")
         #TODO: Input varificaiton error.
@@ -117,7 +116,7 @@ class ProblemSpec:
 
             No need for Exception here, we should overwrite if there exists a text file
         """
-        if (!self.problemLoaded || !self.solutionLoaded):
+        if (not self.problemLoaded or not self.solutionLoaded):
             return(None)
 
         outputFile = open(filename, 'w+')
@@ -134,9 +133,9 @@ class ProblemSpec:
             @return The true total cost of the currently loaded solution
         """
         cost = 0
-        c0 = ASVconfig(self.path[0])
+        c0 = ASVconfig.ASVConfig(self.path[0])
         for i in range(1, len(self.path)):
-            c1 = ASVconfig(self.path[i])
+            c1 = ASVconfig.ASVConfig(self.path[i])
             cost += c0.totalDistance(c1)
             c0 = c1
 
@@ -147,11 +146,11 @@ class ProblemSpec:
             Assumes that a path can be taken directly from the intial condition
             to the goal
         """
-        if (!problemLoaded):
+        if (not self.problemLoaded):
             return(None)
 
         self.path = [self.initialState, self.goalState]
-        self.solutionCost = calculateTotalCost()
+        self.solutionCost = self.calculateTotalCost()
         self.solutionLoaded = True
 
     def getASVCount(self):
@@ -167,14 +166,14 @@ class ProblemSpec:
         return(self.obstacles[:]) #New object
 
     def setPath(self, path):
-        if (!self.problemLoaded):
+        if (not self.problemLoaded):
             return(None)
         self.path = path
-        self.solutionCost = calculateTotalCost
+        self.solutionCost = self.calculateTotalCost()
         self.solutionLoaded = True
 
     def getPath(self):
-        return(path[:]) #New object
+        return(self.path[:]) #New object
 
     def getSolutionCost(self):
         return(self.solutionCost)

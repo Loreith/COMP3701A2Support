@@ -1,8 +1,8 @@
 import math
-import ProblemSpec
-import Obstacle
+import problemSpec
+import obstacle
 import ASVconfig
-import Rectangle2D
+import rectangle2D
 import line2D
 
 class Tester:
@@ -23,7 +23,7 @@ class Tester:
         self.maxError = maxError
         self.lenientBounds = grow(BOUNDS, self.maxError)
 
-        self.ps = ProblemSpec()
+        self.ps = problemSpec.ProblemSpec()
 
     def getMinimumArea(self, asvCount):
         """
@@ -55,7 +55,7 @@ class Tester:
         """
         try:
             return(self.ps.getPath()[0].maxDistance(self.ps.getInitialState())) <= self.maxError
-        except BaseException e:
+        except BaseException:
             print("ProblemSpec not initialised")
             return (False)
 
@@ -65,7 +65,7 @@ class Tester:
             configuration
         """
         print("Test " + str(testNo) + ": Initial state")
-        if (!hasInitialFirst()):
+        if (not hasInitialFirst()):
             print("FAILED: Solution must start at initial state.")
             return (False)
         else:
@@ -79,7 +79,7 @@ class Tester:
         try:
             path = self.ps.getPath()
             return (path[-1].maxDistance(self.ps.getGoalState())) <= self.maxError
-        except BaseException e:
+        except BaseException:
             print("ProblemSpec not initialised")
             return (False)
 
@@ -89,7 +89,7 @@ class Tester:
             configuration
         """
         print("Test " + str(testNo) + ": Goal state")
-        if (!hasGoalLast()):
+        if (not hasGoalLast()):
             print("FAILED: Solution path must end at goal state.")
             return (False)
         else:
@@ -132,7 +132,7 @@ class Tester:
         state = path[0]
         for i in range(1,len(path)):
             nextState = path[i]
-            if (!isValidStep(state,nextState)):
+            if (not isValidStep(state,nextState)):
                 badSteps.append(i-1)
             state = nextState
         return (badSteps)
@@ -369,7 +369,7 @@ class Tester:
         path = self.ps.getPath()
         badStates = []
         for i in range(len(path)):
-            if (!fitsBounds(path[i])):
+            if (not fitsBounds(path[i])):
                 badStates.append(i)
         return (badStates)
 
@@ -414,7 +414,7 @@ class Tester:
         points = cfg.getASVPositions()
         for o in obs:
             lenientParams = grow(o.getRect(), -self.maxError)
-            lenientRect = Rectangle2D(lenientParams[0],lenientParams[1],lenientParams[2],lenientParams[3])
+            lenientRect = rectangle2D.Rectangle2D(lenientParams[0],lenientParams[1],lenientParams[2],lenientParams[3])
 
             for i in range(1, len(points)):
                 if (line2D(points[i-1],points[i]).intersectsRect(lenientRect)):
@@ -486,19 +486,19 @@ class Tester:
         if (testName == "initial"):
             return testInitialFirst(testNo, verbose)
         elif (testName == "goal"):
-			return testGoalLast(testNo, verbose)
+        	return testGoalLast(testNo, verbose)
         elif (testName == "steps"):
-			return testValidSteps(testNo, verbose)
+        	return testValidSteps(testNo, verbose)
         elif (testName == "booms"):
-			return testBoomLengths(testNo, verbose)
+        	return testBoomLengths(testNo, verbose)
         elif (testName == "convexity"):
-			return testConvexity(testNo, verbose)
+        	return testConvexity(testNo, verbose)
         elif (testName == "areas"):
-			return testAreas(testNo, verbose)
+        	return testAreas(testNo, verbose)
         elif (testName == "bounds"):
-			return testBounds(testNo, verbose)
+        	return testBounds(testNo, verbose)
         elif (testName == "collisions"):
-			return testCollisions(testNo, verbose)
+        	return testCollisions(testNo, verbose)
         elif (testName == "cost"):
-			return testTotalCost(testNo, verbose)
+        	return testTotalCost(testNo, verbose)
         return (True)
