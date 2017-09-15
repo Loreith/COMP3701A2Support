@@ -45,21 +45,21 @@ class ProblemSpec:
 
         try:
             self.asvCount = inputData[i]
-            i++
+            i += 1
 
             self.initialState = ASVconfig(inputData[i])
-            i++
+            i += 1
 
             self.goalState = ASVconfig(inputData[i])
-            i++
+            i += 1
 
             numObstacles = inputData[i]
-            i++
+            i += 1
 
             self.obstacles = [None] * numObstacles
             for _ in range(numObstacles):
                 self.obstacles[_] = Obstacle().construct(inputData[i]) #TODO: Swap the contructors
-                i++
+                i += 1
 
             self.problemLoaded = True
         except (IndexError e):
@@ -90,14 +90,14 @@ class ProblemSpec:
 
         try:
             line = inputData[i].split(' ')
-            i++
+            i += 1
             pathLength = line[0]
             self.solutionCost = line[1]
 
             self.path = [None]*pathLength
             for it in range(pathLength):
                 self.path[it] = ASVconfig(inputData[i])
-                i++
+                i += 1
 
             self.solutionLoaded = True
 

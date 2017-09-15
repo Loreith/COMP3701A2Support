@@ -97,17 +97,28 @@ class Rectangle2D:
             #ys.append(stringList[(i*2) + 1])
 
             xMin = stringList[i*2] if stringList[i*2] < xMin else xMin
-            xMin = stringList[i*2] if stringList[i*2] > xMax else xMax
+            xMax = stringList[i*2] if stringList[i*2] > xMax else xMax
             yMin = stringList[(i*2) + 1] if stringList[(i*2) + 1] < yMin else yMin
             yMax = stringList[(i*2) + 1] if stringList[(i*2) + 1] > yMax else yMax
 
-        self.rect = [xMin, yMin, xMac - xMin, yMax - yMin]
+        self.rect = [xMin, yMin, xMax - xMin, yMax - yMin]
 
     def getRect(self):
         """
          Returns the rectangle as a list of x,y,w,h
         """
         return(self.rect)
+
+    def getCorners(self):
+        """
+            Returns the corners of the rectangles as a list of (x,y) tuples
+        """
+        l = [None]*4
+        l[0] = (self.rect[0],self.rect[1])
+        l[1] = (self.rect[0],self.rect[1]+self.rect[3])
+        l[2] = (self.rect[0]+self.rect[2],self.rect[1])
+        l[3] = (self.rect[0]+self.rect[2],self.rect[1]+self.rect[3])
+        return (l)
 
     def distance(self, coord):
         """

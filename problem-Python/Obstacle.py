@@ -91,11 +91,11 @@ class Obstacle:
             #ys.append(stringList[(i*2) + 1])
 
             xMin = stringList[i*2] if stringList[i*2] < xMin else xMin
-            xMin = stringList[i*2] if stringList[i*2] > xMax else xMax
+            xMax = stringList[i*2] if stringList[i*2] > xMax else xMax
             yMin = stringList[(i*2) + 1] if stringList[(i*2) + 1] < yMin else yMin
             yMax = stringList[(i*2) + 1] if stringList[(i*2) + 1] > yMax else yMax
 
-        self.rect = [xMin, yMin, xMac - xMin, yMax - yMin]
+        self.rect = [xMin, yMin, xMax - xMin, yMax - yMin]
 
     def getRect(self):
         """
