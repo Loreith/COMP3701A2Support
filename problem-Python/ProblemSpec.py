@@ -65,7 +65,7 @@ class ProblemSpec:
         except IndexError:
             print("Index out of range in input " + i )
             raise IOError("Index out of range in input " + i)
-        except FileNotFoundError:
+        except IOError:
             print("Input file not found")
             raise IOError("Input file not found")
         #TODO: Input varification error
@@ -103,7 +103,7 @@ class ProblemSpec:
         except IndexError:
             print("Index out of range in solution loading")
             raise IOError("Index out of range in solution loading")
-        except FileNotFoundError:
+        except IOError:
             print("Solution file not found")
             raise IOError("Solution file not found")
         #TODO: Input varificaiton error.
